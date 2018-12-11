@@ -36,7 +36,7 @@ if you have the chance it's a better idea to manually set it.  That way it's gua
 in sync with your deploy integrations or sourcemap uploads.
 
 Release names are just strings but some formats are detected by Sentry and might be rendered
-differently.  For more information have a look at [the releases documentation]({% link _documentation/workflow/releases.md %}).
+differently.  For more information have a look at [the releases documentation]({% link _documentation/workflow/releases/index.md %}).
 
 {:.config-key}
 ### environment

@@ -7,7 +7,7 @@ Sentry supports un-minifying JavaScript via source maps. This lets you view sour
 
 ## Specify the release
 
-If you are uploading source map artifacts yourself, you must [specify the release]({%- link _documentation/workflow/releases.md -%}) in your SDK.  Sentry will use the release name to associate digested event data with the files you’ve uploaded via the [releases API]({%- link _documentation/api/releases/index.md -%}), [sentry-cli]({%- link _documentation/cli/index.md -%}) or [sentry-webpack-plugin](https://github.com/getsentry/sentry-webpack-plugin). This step is optional if you are hosting source maps on the remote server.
+If you are uploading source map artifacts yourself, you must [specify the release]({%- link _documentation/workflow/releases/index.md -%}) in your SDK.  Sentry will use the release name to associate digested event data with the files you’ve uploaded via the [releases API]({%- link _documentation/api/releases/index.md -%}), [sentry-cli]({%- link _documentation/cli/index.md -%}) or [sentry-webpack-plugin](https://github.com/getsentry/sentry-webpack-plugin). This step is optional if you are hosting source maps on the remote server.
 
 ## Next Steps
 

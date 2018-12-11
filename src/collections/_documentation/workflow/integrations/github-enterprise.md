@@ -94,7 +94,7 @@ GitHub Enterprise should now be enabled for all projects under your Sentry organ
 
 ## Commit Tracking
 
-Commit tracking allows you to hone in on problematic commits. Learn more about [commit tracking]({%- link _documentation/workflow/releases.md -%}#link-repository).
+Commit tracking allows you to hone in on problematic commits. Learn more about commit tracking [here]({%- link _documentation/workflow/releases/index.md -%}#link-repository).
 
 ## Suspect Commits and Suggested Assignees
 
