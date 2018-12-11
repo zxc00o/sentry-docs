@@ -1,5 +1,5 @@
 ---
-title: Link a Repository and Associate Commits
+title: Link a Repo and Associate Commits
 sidebar_title: Repos and Commits
 sidebar_order: 1
 ---
@@ -8,14 +8,16 @@ In this step you tell Sentry which commits are associated with a release, allowi
 
 This is a 2-step process:
 
-1. [Link the repo to your org](#link-repo) - this only needs to be done once
-2. [Associate the relevant commits with each release](#associate-commits) - this needs to be done each time you create a release
+1. [Link the repo to your org](#link-repo) (only needs to be done once)
+2. [Associate the relevant commits with each release](#associate-commits) (needs to be done each time you create a release)
 
 #### 1. Link a Repository {#link-repo}
 
 (If you've done this before, skip to [step 2](#associate-commits), as this only needs to be done once.)
 
 First, make sure you've installed the global integration for your source code management tool in Organization Settings > Integrations. You’ll need to be an Owner or Manager of your Sentry organization to do this. Read more about roles in Sentry [here]({%- link _documentation/accounts/membership.md -%}).
+
+{% asset github-installed.png %}
 
 Once you are in Organization Settings > Integrations and have installed the integration, click the 'Configure' button next to your instance.
 
