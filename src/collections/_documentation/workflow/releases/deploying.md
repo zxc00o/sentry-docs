@@ -1,6 +1,6 @@
 ---
 title: Deploying
-sidebar_order: 2
+sidebar_order: 4
 ---
 
 ## Tell Sentry When You Deploy a Release

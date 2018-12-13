@@ -8,6 +8,8 @@ You can now use the data from your GitHub commits to help you find and fix bugs 
 
 {% capture __alert_content -%}
 Sentry owner or manager permissions, and Github owner permissions are required to install this integration.
+
+Learn more about roles in Sentry [here]({%- link _documentation/accounts/membership.md -%}).
 {%- endcapture -%}
 {%- include components/alert.html
   title="Note"

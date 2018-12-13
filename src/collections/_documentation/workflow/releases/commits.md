@@ -1,46 +1,36 @@
 ---
-title: Link a Repo and Associate Commits
-sidebar_title: Repos and Commits
-sidebar_order: 1
+title: Associating Commits with a Release
+sidebar_title: Associating Commits
+sidebar_order: 2
 ---
+
+{% capture __alert_content -%}
+Stop! Have you installed [an integration]({%- link _documentation/workflow/integrations/index.md -%}) with your source code management tool in your Sentry organization, and have you configured it to include the necessary repos?
+
+If not, please go [do that]({%- link _documentation/workflow/integrations/index.md -%}) first.
+{%- endcapture -%}
+{%- include components/alert.html
+  title="Required Prerequisites"
+  content=__alert_content
+  level="warning"
+%}
 
 In this step you tell Sentry which commits are associated with a release, allowing Sentry to pinpoint which commits likely caused an issue, and allowing you to resolve a Sentry issue by including the issue number in your commit message.
 
-This is a 2-step process:
+In your release process, add a step to [create a release object in Sentry]({%- link _documentation/workflow/releases/creating.md -%}) and associate it with commits in your repository. There are two ways of doing this:
 
-1. [Link the repo to your org](#link-repo) (only needs to be done once)
-2. [Associate the relevant commits with each release](#associate-commits) (needs to be done each time you create a release)
-
-#### 1. Link a Repository {#link-repo}
-
-(If you've done this before, skip to [step 2](#associate-commits), as this only needs to be done once.)
-
-First, make sure you've installed the global integration for your source code management tool in Organization Settings > Integrations. You’ll need to be an Owner or Manager of your Sentry organization to do this. Read more about roles in Sentry [here]({%- link _documentation/accounts/membership.md -%}).
-
-{% asset github-installed.png %}
-
-Once you are in Organization Settings > Integrations and have installed the integration, click the 'Configure' button next to your instance.
-
-In the 'Repositories' panel, click 'Add Repository', and add any repositories from which you'd like to track commits. This creates a webhook on the repository which sends Sentry metadata about each commit (such as authors and files changed).
+- Using Sentry’s [Command Line Interface](#cli) (**recommended**)
+- Using the [API](#api)
 
 {% capture __alert_content -%}
-If you’re linking a GitHub repository, ensure you have Admin or Owner permissions on the repository, and that Sentry is an authorized GitHub app in your [GitHub account settings](https://github.com/settings/applications).
-
-If you’re having trouble adding it, you can try to [disconnect](https://sentry.io/account/settings/identities/) and then [reconnect](https://sentry.io/account/settings/social/associate/github/) your GitHub identity.
+For either method, you need to make sure you’re using [Auth Tokens]({%- link _documentation/api/auth.md -%}#auth-tokens) (**not** [API Keys]({%- link _documentation/api/auth.md -%}#api-keys), which are deprecated). You can find your Auth Tokens [here](https://sentry.io/settings/account/api/auth-tokens/).
 {%- endcapture -%}
 {%- include components/alert.html
   title="Note"
   content=__alert_content
 %}
 
-#### 2. Associate Commits with a Release {#associate-commits}
-
-In your release process, add a step to create a release object in Sentry and associate it with commits in your repository. There are 2 ways of doing this:
-
-1.  Using Sentry’s [Command Line Interface](#cli) (**recommended**)
-2.  Using the [API](#api)
-
-##### Using the CLI {#cli}
+## Using the CLI {#cli}
 
 ```bash
 # Assumes you're in a git repository
@@ -55,19 +45,25 @@ sentry-cli releases new -p project1 -p project2 $VERSION
 sentry-cli releases set-commits --auto $VERSION
 ```
 
-**Note:** You need to make sure you’re using [Auth Tokens]({%- link _documentation/api/auth.md -%}#auth-tokens) (**not** [API Keys]({%- link _documentation/api/auth.md -%}#api-keys), which are deprecated). You can find your Auth Tokens [here](https://sentry.io/settings/account/api/auth-tokens/).
-
 In the above example, we’re using the `propose-version` sub-command to automatically determine a release ID. Then we’re creating a release tagged `VERSION` for the organization `my-org` for projects `project1` and `project2`. Finally we’re using the `--auto` flag to automatically determine the repository name, and associate the commits between the previous release’s commit and the current head commit with the `VERSION` release. (The first time you associate commits, we use the latest 10 commits.)
 
 If you want more control over which commits to associate, or are unable to execute the command inside the repository, you can manually specify a repository and range. In this case, you'd replace the last line above with:
 
 `sentry-cli releases set-commits --commit "my-repo@from..to" $VERSION`
 
-Here we are associating commits (or refs) between `from` and `to` with the current release, `from` being the previous release’s head commit. The repository name `my-repo` should match the name you entered when linking the repo in [the previous step](#link-repo), and is of the form `owner-name/repo-name`. The `from` commit is optional and we’ll use the previous release’s head commit as the baseline if it is excluded.
+Here we are associating commits (or refs) between `from` and `to` with the current release, `from` being the previous release’s head commit. The repository name `my-repo` is of the form `org-name/repo-name` and must match the name you see when you configure your integration and select repos. The `from` commit is optional and we’ll use the previous release’s head commit as the baseline if it is excluded.
 
 For more information, see the [CLI docs]({%- link _documentation/cli/releases.md -%}).
 
-##### Using the API {#api}
+## Using the API {#api}
+
+{% capture __alert_content -%}
+We changed releases to be an org-level entity instead of a project-level entity, so if you are attempting to add commits to a pre-existing releases configuration that uses the project releases endpoint, you will need to change the url.
+{%- endcapture -%}
+{%- include components/alert.html
+  title="Note"
+  content=__alert_content
+%}
 
 ```bash
 # Create a new release and associate the relevant commits
@@ -87,8 +83,6 @@ curl https://sentry.io/api/0/organizations/:organization_slug/releases/ \
 }
 '
 ```
-
-**Note:** We changed releases to be an org-level entity instead of a project-level entity, so if you are attempting to add commits to a pre-existing releases configuration that uses the project releases endpoint, you will need to change the url.
 
 If you’d like to have more control over what order the commits appear in, you can send us a list of all commits. That might look like this:
 
@@ -126,7 +120,7 @@ res = requests.post(
 
 For more information, see the [API reference]({%- link _documentation/api/releases/post-organization-releases.md -%}).
 
-#### Results
+## Results
 
 After you've linked your repo and associated the relevant commits, **suspect commits** and **suggested assignees** will start appearing on the issue page. We determine these by tying together the commits in the release, files touched by those commits, files observed in the stack trace, authors of those files, and [ownership rules]({%- link _documentation/workflow/issue-owners.md -%}).
 
@@ -142,4 +136,10 @@ Fixes SENTRY-317
 
 When Sentry sees this commit, we’ll reference the commit in the issue, and when you create a release in Sentry we’ll mark the issue as resolved in that release.
 
-**Note:** If you’re using GitHub, you may have a privacy setting enabled which prevents Sentry from identifying the user’s real email address. If you wish to use the suggested owners feature, you’ll need to ensure “Keep my email address private” is unchecked in GitHub’s [account settings](https://github.com/settings/emails).
+{% capture __alert_content -%}
+If you’re using GitHub, you may have a privacy setting enabled which prevents Sentry from identifying the user’s real email address. If you wish to use the suggested owners feature, you’ll need to ensure “Keep my email address private” is unchecked in GitHub’s [account settings](https://github.com/settings/emails).
+{%- endcapture -%}
+{%- include components/alert.html
+  title="Note"
+  content=__alert_content
+%}

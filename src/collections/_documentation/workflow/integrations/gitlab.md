@@ -3,12 +3,14 @@ title: GitLab
 sidebar_order: 6
 ---
 
-Sentry’s new GitLab integration helps you find and fix bugs faster by using data from your GitLab commits. Additionally, you can streamline your triaging process by creating a GitLab issue directly from Sentry.
+Sentry’s new GitLab integration helps you find and fix bugs faster by using data from your GitLab commits. You can also streamline your triaging process by creating GitLab issues directly from Sentry.
 
 ## Configure GitLab
 
 {% capture __alert_content -%}
 Sentry owner or manager permissions are required to install this integration.
+
+Learn more about roles in Sentry [here]({%- link _documentation/accounts/membership.md -%}).
 {%- endcapture -%}
 {%- include components/alert.html
   title="Note"
@@ -50,10 +52,10 @@ Sentry owner or manager permissions are required to install this integration.
 
 1. In Sentry, return to Organization Settings > **Integrations**. You’ll see a new instance of GitLab underneath the list of integrations.
 
-1. Next to your GitLab Instance, click **Configure**. _Note: It’s important to configure to receive the full benefits of commit tracking._
+1. Next to your GitLab Instance, click **Configure**. _Note: It’s necessary to configure the integration to use commit tracking._
 
     [{% asset gitlab/configure-gitlab-instance.png alt="GitLab instance with connected group and highlighted configure button" %}]({% asset gitlab/configure-gitlab-instance.png @path %})
 
-1. On the resulting page, click **Add Repository** to select which repositories you’d like to begin tracking commits.
+1. On the resulting page, click **Add Repository** to select which repositories you’d like to begin tracking commits from.
 
     [{% asset gitlab/add-repo.png alt="Add repository" %}]({% asset gitlab/add-repo.png @path %})

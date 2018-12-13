@@ -8,6 +8,8 @@ You can now use the data from your GitHub Enterprise commits to help you find an
 
 {% capture __alert_content -%}
 Sentry owner or manager permissions, and GitHub owner permissions are required to install this integration.
+
+Learn more about roles in Sentry [here]({%- link _documentation/accounts/membership.md -%}).
 {%- endcapture -%}
 {%- include components/alert.html
   title="Note"

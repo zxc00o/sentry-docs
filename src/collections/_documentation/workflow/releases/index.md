@@ -5,21 +5,21 @@ sidebar_order: 0
 
 A release is a version of your code that is deployed to an environment. When you give Sentry information about your releases, you unlock a number of new features:
 
--   Determine the issues and regressions introduced in a new release
--   Predict which commit caused an issue and who is likely responsible
--   Resolve Sentry issues by including the issue number in your commit message
--   Receive email notifications when your code gets deployed
+- Determine the issues and regressions introduced in a new release
+- Predict which commit caused an issue and who is likely responsible
+- Resolve Sentry issues by including the issue number in your commit message
+- Receive email notifications when your code gets deployed
 
-Additionally, releases are used for applying [sourcemaps]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%}) to minified JavaScript to view original untransformed source code.
+Additionally, releases are used for JavaScript and iOS projects to unminify or symbolicate error stack traces, by holding source maps or dSYM files as release "artifacts." To learn more, please check out our [JavaScript]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%}) and [iOS]({%- link _documentation/clients/cocoa/index.md -%}#sentry-cocoa-debug-symbols) docs.
 
-## Configuring Releases
+## Using Releases
 
-Configuring releases fully is a 3-step process:
+Before you can use releases to their full potential, you'll need to add [an integration]({%- link _documentation/workflow/integrations/index.md -%}) with your source code management tool to your org, and make sure to configure it to include any repos from which you want to track commits. Note that you'll need to be an Owner or Manager of your Sentry organization to do this. You can read more about roles in Sentry [here]({%- link _documentation/accounts/membership.md -%}).
 
-1.  [Tag Your Errors With a Release]({%- link _documentation/workflow/releases/tagging.md -%})
-2.  [Link a Repository and Associate Commits]({%- link _documentation/workflow/releases/repos-commits.md -%})
-3.  [Tell Sentry When You Deploy a Release]({%- link _documentation/workflow/releases/deploying.md -%})
+Once your integration is installed and you've linked the necessary repos, for each release you'll complete the following steps as part of your build process:
 
-## Release Artifacts
-
-Javascript and iOS projects can use release artifacts to unminify or symbolicate error stack traces. To learn more, please check out our [iOS]({%- link _documentation/clients/cocoa/index.md -%}#sentry-cocoa-debug-symbols) and [JavaScript]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%}) docs.
+- [Create the release]({%- link _documentation/workflow/releases/creating.md -%})
+- [Associate commits with the release]({%- link _documentation/workflow/releases/commits.md -%})
+- [Tag your errors with the release ID]({%- link _documentation/workflow/releases/tagging.md -%})
+- (_for JS and iOS_) Upload [source maps]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%}) or [dSYM files]({%- link _documentation/clients/cocoa/index.md -%}#sentry-cocoa-debug-symbols)
+- (_optional_) [Tell Sentry when you deploy]({%- link _documentation/workflow/releases/deploying.md -%})

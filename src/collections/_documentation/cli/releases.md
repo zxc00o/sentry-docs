@@ -3,7 +3,7 @@ title: 'Release Management'
 sidebar_order: 2
 ---
 
-The `sentry-cli` tool can be used for release management on Sentry. It allows you to create, edit and delete releases as well as upload release artifacts for them.
+The `sentry-cli` tool can be used for release management on Sentry. It allows you to create, edit, and delete releases, as well as upload release artifacts for them.
 
 {% capture __alert_content -%}
 Because releases work on projects you will need to specify the organization and project you are working with. For more information about this refer to [Working with Projects]({%- link _documentation/cli/configuration.md -%}#sentry-cli-working-with-projects).
@@ -15,17 +15,25 @@ Because releases work on projects you will need to specify the organization and 
 
 ## Creating Releases
 
-Releases are created with the `sentry-cli releases new` command. It takes at the very least a version identifier that uniquely identifies the relases. It can be arbitrary but for certain platforms recommendations exist:
+Releases are created with the `sentry-cli releases new` command. It takes at the very least a version identifier that uniquely identifies the relase. It can be arbitrary but for certain platforms recommendations exist:
 
 - for mobile devices use `VERSION_NUMBER` or `VERSION_NUMBER (BUILD_NUMBER)`. So for instance `1.0.0` or `1.0.0 (1234)`.
-- if you use a DVCS we recommed using the identifying hash (eg: the commit SHA, `da39a3ee5e6b4b0d3255bfef95601890afd80709`). You can let sentry-cli automatically determine this hash for supported version control systems with `sentry-cli releases propose-version`.
+- if you use a version control system we recommed using the identifying hash (eg: the commit SHA, `da39a3ee5e6b4b0d3255bfef95601890afd80709`). You can let sentry-cli automatically determine this hash for supported version control systems with `sentry-cli releases propose-version`.
 - if you tag releases we recommend using the release tag (eg: `v1.0.0`).
 
-Releases can also be auto created by different systems. For instance upon uploading a sourcemap a release is automatically created. Likewise releases are created by some clients when an event for a release comes in.
+{% capture __alert_content -%}
+Releases (and therefore their identifiers) are global per organization, so make sure to prefix the identifier with something project-specific if need be.
+{%- endcapture -%}
+{%- include components/alert.html
+  title="Note"
+  content=__alert_content
+%}
+
+Releases can also be automatically created by different systems. For instance, uploading a source map to a release which hasn't already been created will create that release automatically. Likewise, some clients can tag errors with a release ID, and Sentry will automatically create the release if an error comes in tagged with a release which hasn't been created yet.
 
 ## Finalizing Releases
 
-By default a release is created “unreleased”. This can be changed by passing either `--finalize` to the `new` command which will immediately finalize the release or you can separately later call `sentry-cli releases finalize VERSION`. The latter is useful if you are managing releases as part of a build process:
+By default a release is created in an “unfinalized” state. (This can be changed by passing `--finalize` to the `new` command.) To finalize an unfinalized release, you can use `sentry-cli releases finalize VERSION`. This is useful if you are managing releases as part of a build process:
 
 ```bash
 #!/bin/sh
@@ -35,18 +43,16 @@ sentry-cli releases new "$VERSION"
 sentry-cli releases finalize "$VERSION"
 ```
 
-If you are using git you can ask sentry to determine `$VERSION`:
+You also might choose to wait to finalize a release until it's gone live (eg: deployed to your machines, enabled in the app store, etc.).
 
-```bash
-#!/bin/sh
-VERSION=`sentry-cli releases propose-version`
-```
+Finalizing a release has a two main effects:
 
-Then the UI will reflect the time it took for the release to be created. You can also finalize it later when you pushed the release live (eg: deployed to your machines, enabled in the app store etc.).
+- A release won't show up in your Activity Feed until it's finalized.
+- Everywhere they're used, releases are sorted by timestamp, preferring date finalized over date created. That means finalizing a release changes its position in the sort order, which in turn affects things like what counts as the "next release" when marking an issue "resolved in the next release," which release is attached to the resolution when resolving via commit, and any other place latest release(s) are used or displayed.
 
 ## Commit Integration {#sentry-cli-commit-integration}
 
-If you have [repositories configured]({%- link _documentation/workflow/releases/index.md -%}#link-repository) within your Sentry organization you can associate commits with your release. This currently only works if you are using GitHub, but we are going to expand this later.
+If you've installed [an integration]({%- link _documentation/workflow/integrations/index.md -%}) with your source code management tool, and configured it to include the appropriate repos, you can associate commits with your release.
 
 There are two modes in which you can use this. One is the fully automatic mode. If you are deploying from a git repository and sentry-cli can discover the git repository from the current working directory you can set the commits with the `--auto` flag:
 
