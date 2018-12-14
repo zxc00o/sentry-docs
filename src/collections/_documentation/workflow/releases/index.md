@@ -10,7 +10,7 @@ A release is a version of your code that is deployed to an environment. When you
 - Resolve Sentry issues by including the issue number in your commit message
 - Receive email notifications when your code gets deployed
 
-Additionally, releases are used for JavaScript and iOS projects to unminify or symbolicate error stack traces, by holding source maps or dSYM files as release "artifacts." To learn more, please check out our [JavaScript]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%}) and [iOS]({%- link _documentation/clients/cocoa/index.md -%}#sentry-cocoa-debug-symbols) docs.
+Additionally, releases are used for JavaScript projects to unminify  error stack traces, by holding source maps as release "artifacts." To learn more, please check out our [JavaScript]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%}) docs.
 
 ## Using Releases
 
@@ -21,5 +21,5 @@ Once your integration is installed and you've linked the necessary repos, for ea
 - [Create the release]({%- link _documentation/workflow/releases/creating.md -%})
 - [Associate commits with the release]({%- link _documentation/workflow/releases/commits.md -%})
 - [Tag your errors with the release ID]({%- link _documentation/workflow/releases/tagging.md -%})
-- (_for JS and iOS_) Upload [source maps]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%}) or [dSYM files]({%- link _documentation/clients/cocoa/index.md -%}#sentry-cocoa-debug-symbols)
+- (_JavaScript projects_) [Upload source maps]({%- link _documentation/platforms/javascript/sourcemaps/index.md -%})
 - (_optional_) [Tell Sentry when you deploy]({%- link _documentation/workflow/releases/deploying.md -%})
