@@ -1,5 +1,6 @@
 -
       slug: koa
+      platformicon: nodejs
       support_level: production
       type: framework
       name: Koa
@@ -9,6 +10,7 @@
         - _documentation/platforms/node/koa.md
 -
       slug: node
+      platformicon: nodejs
       support_level: production
       type: language
       name: Node.js
@@ -18,6 +20,7 @@
       fallback_platform: javascript
 -
       slug: node-legacy
+      platformicon: nodejs
       support_level: production
       type: language
       name: Node.js
@@ -27,6 +30,7 @@
       superseded_by: node
 -
       slug: express
+      platformicon: nodejs
       support_level: production
       type: framework
       name: Express
@@ -36,6 +40,7 @@
         - _documentation/platforms/node/express.md
 -
       slug: connect
+      platformicon: nodejs
       support_level: production
       type: framework
       name: Connect
@@ -45,6 +50,7 @@
         - _documentation/platforms/node/connect.md
 -
       slug: cordova
+      platformicon: cordova
       support_level: production
       type: language
       name: Cordova
@@ -54,6 +60,7 @@
       fallback_platform: javascript
 -
       slug: aspnetcore
+      platformicon: csharp
       support_level: production
       type: framework
       name: ASP.NET Core
@@ -63,6 +70,7 @@
       fallback_platform: csharp
 -
       slug: java
+      platformicon: java
       support_level: production
       type: language
       name: Java
@@ -72,6 +80,7 @@
         - _documentation/clients/java/usage.md
 -
       slug: logging
+      platformicon: java
       support_level: production
       type: framework
       name: java.util.logging
@@ -81,6 +90,7 @@
         - _documentation/clients/java/integrations.md#logging
 -
       slug: logback
+      platformicon: java
       support_level: production
       type: framework
       name: Logback
@@ -90,6 +100,7 @@
         - _documentation/clients/java/integrations.md#logback
 -
       slug: android
+      platformicon: java
       support_level: production
       type: framework
       name: Android
@@ -99,6 +110,7 @@
         - _documentation/platforms/android/index.md
 -
       slug: log4j2
+      platformicon: java
       support_level: production
       type: framework
       name: 'Log4j 2.x'
@@ -108,6 +120,7 @@
         - _documentation/clients/java/integrations.md#log4j2
 -
       slug: log4j
+      platformicon: java
       support_level: production
       type: framework
       name: 'Log4j 1.x'
@@ -117,6 +130,7 @@
         - _documentation/clients/java/integrations.md#log4j
 -
       slug: appengine
+      platformicon: java
       support_level: production
       type: framework
       name: 'Google App Engine'
@@ -126,6 +140,7 @@
         - _documentation/clients/java/integrations.md#appengine
 -
       slug: python
+      platformicon: python
       support_level: production
       type: language
       name: Python
@@ -134,6 +149,7 @@
       case_style: snake_case
 -
       slug: python-legacy
+      platformicon: python
       support_level: production
       type: language
       name: Python Legacy
@@ -142,6 +158,7 @@
       superseded_by: python
 -
       slug: pyramid
+      platformicon: python
       support_level: production
       type: framework
       name: Pyramid
@@ -153,6 +170,7 @@
       case_style: camelCase
 -
       slug: rq
+      platformicon: python
       support_level: production
       type: framework
       name: RQ
@@ -163,6 +181,7 @@
         - _documentation/clients/python/integrations.md#rq
 -
       slug: flask
+      platformicon: flask
       support_level: production
       type: framework
       name: Flask
@@ -172,6 +191,7 @@
         - _documentation/platforms/python/flask.md
 -
       slug: sanic
+      platformicon: python
       support_level: production
       type: framework
       name: Sanic
@@ -181,6 +201,7 @@
         - _documentation/platforms/python/sanic.md
 -
       slug: django
+      platformicon: django
       support_level: production
       type: framework
       name: Django
@@ -190,6 +211,7 @@
         - _documentation/platforms/python/django.md
 -
       slug: celery
+      platformicon: python
       support_level: production
       type: library
       name: Celery
@@ -199,6 +221,7 @@
         - _documentation/platforms/python/celery.md
 -
       slug: pythonawslambda
+      platformicon: python
       support_level: production
       type: framework
       name: AWS Lambda
@@ -208,6 +231,7 @@
         - _documentation/platforms/python/aws_lambda.md
 -
       slug: pythonserverless
+      platformicon: python
       support_level: production
       type: framework
       name: Serverless (Python)
@@ -217,6 +241,7 @@
         - _documentation/platforms/python/serverless.md
 -
       slug: pyramid
+      platformicon: python
       support_level: production
       type: framework
       name: Pyramid
@@ -226,6 +251,7 @@
         - _documentation/platforms/python/pyramid.md
 -
       slug: rq
+      platformicon: python
       support_level: production
       type: library
       name: RQ (Redis Queue)
@@ -235,6 +261,7 @@
         - _documentation/platforms/python/rq.md
 -
       slug: wsgi
+      platformicon: python
       support_level: production
       type: framework
       name: WSGI
@@ -244,6 +271,7 @@
         - _documentation/platforms/python/wsgi.md
 -
       slug: aiohttp
+      platformicon: python
       support_level: production
       type: framework
       name: AIOHTTP
@@ -253,6 +281,7 @@
         - _documentation/platforms/python/aiohttp.md
 -
       slug: asgi
+      platformicon: python
       support_level: production
       type: framework
       name: ASGI
@@ -262,6 +291,7 @@
         - _documentation/platforms/python/asgi.md
 -
       slug: tornado
+      platformicon: python
       support_level: production
       type: framework
       name: Tornado
@@ -271,6 +301,7 @@
         - _documentation/platforms/python/tornado.md
 -
       slug: bottle
+      platformicon: bottle
       support_level: production
       type: framework
       name: Bottle
@@ -289,6 +320,7 @@
         - _documentation/platforms/python/tryton.md
 -
       slug: falcon
+      platformicon: python
       support_level: production
       type: framework
       name: Falcon
@@ -298,6 +330,7 @@
         - _documentation/platforms/python/falcon.md
 -
       slug: pylons
+      platformicon: python
       support_level: production
       type: framework
       name: Pylons
@@ -308,6 +341,7 @@
         - _documentation/clients/python/integrations.md#pylons
 -
       slug: swift
+      platformicon: apple
       support_level: production
       type: language
       name: Swift
@@ -317,6 +351,7 @@
         - _documentation/platforms/cocoa/index.md
 -
       slug: browser
+      platformicon: javascript
       support_level: production
       type: language
       name: Browser JavaScript
@@ -326,6 +361,7 @@
       fallback_platform: javascript
 -
       slug: javascript
+      platformicon: javascript
       support_level: production
       type: language
       wizard_parent: javascript
@@ -334,9 +370,10 @@
       case_style: camelCase
 -
       slug: javascript-legacy
+      platformicon: javascript
       support_level: production
       type: language
-      name: JavaScript
+      name: JavaScript Legacy
       doc_link: /clients/javascript/
       version: 3.26.4
       version_key: RAVEN_VERSION
@@ -344,6 +381,7 @@
       superseded_by: browser
 -
       slug: browsernpm
+      platformicon: javascript
       support_level: production
       type: language
       name: Browser JavaScript NPM
@@ -352,6 +390,7 @@
       fallback_platform: javascript
 -
       slug: vue
+      platformicon: vue
       support_level: production
       type: framework
       name: Vue
@@ -363,6 +402,7 @@
       version_key: RAVEN_VERSION
 -
       slug: backbone
+      platformicon: javascript
       support_level: production
       type: framework
       name: Backbone
@@ -374,6 +414,7 @@
       version_key: RAVEN_VERSION
 -
       slug: ember
+      platformicon: ember
       support_level: production
       type: framework
       name: Ember
@@ -385,6 +426,7 @@
       version_key: RAVEN_VERSION
 -
       slug: react
+      platformicon: react
       support_level: production
       type: framework
       name: React
@@ -396,6 +438,7 @@
       version_key: RAVEN_VERSION
 -
       slug: angularjs
+      platformicon: angularjs
       support_level: production
       type: framework
       name: AngularJS
@@ -407,6 +450,7 @@
       version_key: RAVEN_VERSION
 -
       slug: angular
+      platformicon: angularjs
       support_level: production
       type: framework
       name: Angular
@@ -418,6 +462,7 @@
       version_key: RAVEN_VERSION
 -
       slug: electron
+      platformicon: electron
       support_level: production
       type: language
       name: Electron
@@ -427,6 +472,7 @@
       fallback_platform: javascript
 -
       slug: elixir
+      platformicon: elixir
       support_level: production
       type: language
       name: Elixir
@@ -438,6 +484,7 @@
       case_style: PascalCase
 -
       slug: react-native
+      platformicon: react
       support_level: production
       type: language
       name: React-Native
@@ -448,6 +495,7 @@
         - _documentation/platforms/react-native/index.md
 -
       slug: objc
+      platformicon: apple
       support_level: production
       type: language
       name: Objective-C
@@ -457,6 +505,7 @@
         - _documentation/platforms/cocoa/index.md
 -
       slug: csharp
+      platformicon: csharp
       support_level: production
       type: language
       name: 'C#'
@@ -465,6 +514,7 @@
       case_style: PascalCase
 -
       slug: csharp-legacy
+      platformicon: csharp
       support_level: community
       type: language
       name: 'C#'
@@ -473,6 +523,7 @@
       superseded_by: csharp
 -
       slug: go
+      platformicon: go
       support_level: production
       type: language
       name: Go
@@ -481,6 +532,7 @@
       case_style: PascalCase
 -
       slug: http
+      platformicon: go
       support_level: production
       type: framework
       name: net/http
@@ -490,6 +542,7 @@
         - _documentation/platforms/go/http.md
 -
       slug: go-legacy
+      platformicon: go
       support_level: in-development
       type: language
       name: Go Legacy
@@ -498,6 +551,7 @@
       superseded_by: go
 -
       slug: php
+      platformicon: php
       support_level: production
       type: language
       name: PHP
@@ -506,6 +560,7 @@
       case_style: snake_case
 -
       slug: laravel
+      platformicon: php
       support_level: production
       type: framework
       name: Laravel
@@ -515,6 +570,7 @@
         - _documentation/platforms/php/laravel.md
 -
       slug: symfony
+      platformicon: php
       support_level: production
       type: framework
       name: Symfony
@@ -524,6 +580,7 @@
         - _documentation/platforms/php/symfony.md
 -
       slug: php-legacy
+      platformicon: php
       support_level: production
       type: language
       name: PHP Legacy
@@ -532,6 +589,7 @@
       superseded_by: php
 -
       slug: monolog
+      platformicon: php
       support_level: production
       type: framework
       name: Monolog
@@ -542,6 +600,7 @@
         - _documentation/clients/php/integrations.md#monolog
 -
       slug: symfony2
+      platformicon: php
       support_level: production
       type: framework
       name: Symfony
@@ -551,6 +610,7 @@
         -  _documentation/platforms/php/symfony.md
 -
       slug: ruby
+      platformicon: ruby
       support_level: production
       type: language
       name: Ruby
@@ -560,6 +620,7 @@
         - _documentation/clients/ruby/index.md
 -
       slug: rack
+      platformicon: ruby
       support_level: production
       type: framework
       name: Rack
@@ -569,6 +630,7 @@
         - _documentation/clients/ruby/integrations.md#rack
 -
       slug: rails
+      platformicon: ruby
       support_level: production
       type: framework
       name: Rails
@@ -578,6 +640,7 @@
         - _documentation/clients/ruby/integrations.md#rails
 -
       slug: rust
+      platformicon: rust
       support_level: production
       type: language
       name: Rust
@@ -588,6 +651,8 @@
       case_style: snake_case
 -
       slug: minidump
+      platformicon: generic
+      platformicon: ruby
       support_level: production
       type: framework
       name: Minidump
@@ -597,6 +662,7 @@
         - _documentation/platforms/native/minidump.md
 -
       slug: native
+      platformicon: generic
       support_level: production
       type: language
       name: Native (C/C++)
