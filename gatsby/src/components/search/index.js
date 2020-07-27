@@ -78,7 +78,7 @@ export default function Search({ indices, collapse, hitsAsGrid }) {
       onSearchStateChange={({ query }) => setQuery(query)}
     >
       <div ref={ref}>
-        <Input onFocus={() => setFocus(true)} {...{ collapse, focus }} />
+        <Input onFocus={() => setFocus(true)} />
         <div
           style={{ display: query.length > 0 && focus ? "block" : "none" }}
           className="hits"
