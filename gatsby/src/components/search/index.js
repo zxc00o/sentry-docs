@@ -65,7 +65,7 @@ export default function Search({ indices, collapse, hitsAsGrid }) {
           style={{ display: query.length > 0 && focus ? "block" : "none" }}
           className="hits"
         >
-          <div className="list-group search-results">
+          <div className="search-results">
             {indices.map(({ name, title, hitComp, ...props }) => (
               <Index key={name} indexName={name}>
                 <Results>
