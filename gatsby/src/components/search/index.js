@@ -13,24 +13,6 @@ import algoliasearch from "algoliasearch/lite";
 import Input from "./input";
 import * as hitComps from "./hitComps";
 
-const LegacyPageHit = (clickHandler) => ({ hit }) => {
-  return (
-    <Link to={hit.url} onClick={clickHandler}>
-      <h6 className="mb-1">
-        <Highlight attribute="title" hit={hit} tagName="mark" />
-        {hit.categories && (
-          <React.Fragment>
-            {hit.categories.map((category) => (
-              <span className="badge badge-secondary">{category}</span>
-            ))}
-          </React.Fragment>
-        )}
-      </h6>
-      <Snippet attribute="content" hit={hit} tagName="mark" />
-    </Link>
-  );
-};
-
 const Results = connectStateResults(
   ({ searchState: state, searchResults: res, children }) =>
     res && res.nbHits > 0 ? (
@@ -95,7 +77,9 @@ export default function Search({ indices, collapse, hitsAsGrid }) {
             ))}
             <Index key="legacy" indexName="sentry-docs">
               <Results>
-                <Hits hitComponent={LegacyPageHit(() => setFocus(false))} />
+                <Hits
+                  hitComponent={hitComps.LegacyPageHit(() => setFocus(false))}
+                />
               </Results>
             </Index>
           </div>
