@@ -72,6 +72,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         noindex: {
           type: "Boolean",
         },
+        next_page: {
+          type: "String",
+        },
+        prev_page: {
+          type: "String",
+        },
         sidebar_order: {
           type: "Int",
           resolve(source, args, context, info) {
@@ -107,6 +113,7 @@ exports.onCreateNode = ({
   node,
   actions,
   getNode,
+  getNodes,
   createContentDigest,
   createNodeId,
 }) => {
@@ -124,6 +131,32 @@ exports.onCreateNode = ({
       node,
       value: value.indexOf("/clients/") === 0,
     });
+
+    if (node.frontmatter.next_page) {
+      actions.createNodeField({
+        node,
+        name: `nextPage___NODE`,
+        value: getNodes().find(
+          n =>
+            n.internal.type === "File" &&
+            n.sourceInstanceName === "docs" &&
+            createFilePath({ node: n, getNode }) === node.frontmatter.next_page
+        ).id,
+      });
+    }
+
+    if (node.frontmatter.prev_page) {
+      actions.createNodeField({
+        node,
+        name: `prevPage___NODE`,
+        value: getNodes().find(
+          n =>
+            n.internal.type === "File" &&
+            n.sourceInstanceName === "docs" &&
+            createFilePath({ node: n, getNode }) === node.frontmatter.prev_page
+        ).id,
+      });
+    }
   } else if (node.internal.type === "ApiDoc") {
     const value = createFilePath({ node, getNode });
     createNodeField({
@@ -201,6 +234,8 @@ exports.createPages = async function({ actions, graphql, reporter }) {
             childMarkdownRemark {
               frontmatter {
                 title
+                next_page
+                prev_page
               }
               fields {
                 slug
@@ -209,6 +244,8 @@ exports.createPages = async function({ actions, graphql, reporter }) {
             childMdx {
               frontmatter {
                 title
+                next_page
+                prev_page
               }
               fields {
                 slug
@@ -223,19 +260,21 @@ exports.createPages = async function({ actions, graphql, reporter }) {
       reporter.panicOnBuild('🚨  ERROR: Loading "createDocs" query');
     }
     const component = require.resolve(`./src/components/pages/doc.js`);
+    const nodes = data.allFile.nodes
+      .filter(node => node.childMarkdownRemark || node.childMdx)
+      .map(node => [node, node.childMarkdownRemark || node.childMdx])
+      .filter(([node, child]) => !!child.fields);
+
     await Promise.all(
-      data.allFile.nodes.map(async node => {
-        const child = node.childMarkdownRemark || node.childMdx;
-        if (child && child.fields) {
-          actions.createPage({
-            path: child.fields.slug,
-            component,
-            context: {
-              id: node.id,
-              title: child.frontmatter.title,
-            },
-          });
-        }
+      nodes.map(async ([node, child]) => {
+        actions.createPage({
+          path: child.fields.slug,
+          component,
+          context: {
+            id: node.id,
+            title: child.frontmatter.title,
+          },
+        });
       })
     );
   };
