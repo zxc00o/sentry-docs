@@ -33,6 +33,18 @@ const query = graphql`
   }
 `;
 
+export const getFallbackPlatformKeys = (
+  platform: Platform | Guide
+): string[] => {
+  let current = platform;
+  const result = [];
+  while (current && current.fallbackPlatform) {
+    result.push(current.fallbackPlatform);
+    current = getPlatform(current.fallbackPlatform);
+  }
+  return result;
+};
+
 export const formatCaseStyle = (style: string, value: string): string => {
   switch (style) {
     case "snake_case":
@@ -71,9 +83,9 @@ export type Guide = {
   name: string;
   title: string;
   url: string;
-  sdk: string;
-  caseStyle: string;
-  supportLevel: string;
+  sdk?: string;
+  caseStyle?: string;
+  supportLevel?: string;
   fallbackPlatform: string;
 };
 
@@ -82,9 +94,9 @@ export type Platform = {
   name: string;
   title: string;
   url: string;
-  sdk: string;
-  caseStyle: string;
-  supportLevel: string;
+  sdk?: string;
+  caseStyle?: string;
+  supportLevel?: string;
   guides?: Guide[];
   fallbackPlatform?: string;
 };

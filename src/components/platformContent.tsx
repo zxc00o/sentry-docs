@@ -2,7 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import { graphql, useStaticQuery } from "gatsby";
 
-import usePlatform, { getPlatform, Platform } from "./hooks/usePlatform";
+import usePlatform, {
+  getPlatform,
+  getFallbackPlatformKeys,
+  Platform,
+} from "./hooks/usePlatform";
 import Content from "./content";
 import SmartLink from "./smartLink";
 
@@ -58,7 +62,7 @@ const getFileForPlatform = (
 ): FileNode | null => {
   const platformsToSearch = [
     platform.key,
-    platform.fallbackPlatform,
+    ...getFallbackPlatformKeys(platform),
     fallbackPlatform,
     "_default",
   ];

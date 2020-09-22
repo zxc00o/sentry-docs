@@ -2,12 +2,13 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import ConfigKey from "../configKey";
-import usePlatform from "../hooks/usePlatform";
+import usePlatform, { getFallbackPlatformKeys } from "../hooks/usePlatform";
 
 jest.mock("../hooks/usePlatform");
 
 describe("ConfigKey", () => {
   it("renders correctly", () => {
+    getFallbackPlatformKeys.mockImplementation(() => []);
     usePlatform.mockReturnValue([
       {
         key: "ruby",

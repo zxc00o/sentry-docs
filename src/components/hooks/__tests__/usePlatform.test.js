@@ -2,7 +2,7 @@ import React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
 
 import PageContext from "../../pageContext";
-import usePlatform from "../usePlatform";
+import usePlatform, { getFallbackPlatformKeys } from "../usePlatform";
 import useLocalStorage from "../useLocalStorage";
 
 import { useLocation, useNavigate } from "@reach/router";
@@ -13,33 +13,80 @@ const PLATFORMS = [
     key: "javascript",
     name: "javascript",
     title: "JavaScript",
+    url: "/platforms/javascript/",
     guides: [],
+  },
+  {
+    key: "node",
+    name: "node",
+    title: "Node.js",
+    fallbackPlatform: "javascript",
+    url: "/platforms/node/",
+    guides: [
+      {
+        key: "node.koa",
+        name: "koa",
+        title: "Koa",
+        url: "/platforms/node/guides/koa/",
+        fallbackPlatform: "node",
+      },
+    ],
   },
   {
     key: "ruby",
     name: "ruby",
     title: "Ruby",
-    guides: [],
+    url: "/platforms/ruby/",
+    guides: [
+      {
+        key: "ruby.rails",
+        name: "rails",
+        title: "Rails",
+        url: "/platforms/ruby/guides/rails/",
+        fallbackPlatform: "ruby",
+      },
+    ],
   },
 ];
 
 jest.mock("../useLocalStorage");
 
-describe("usePlatform", () => {
-  it("uses the default of javascript", () => {
-    const wrapper = ({ children }) => (
-      <PageContext.Provider value={{}}>{children}</PageContext.Provider>
-    );
-
-    useLocalStorage.mockReturnValue([null, jest.fn()]);
-    useLocation.mockReturnValue({
-      pathname: "/",
-    });
+describe("getFallbackPlatformKeys", () => {
+  it("uses the multiple fallbacks", () => {
     useStaticQuery.mockImplementation(() => ({
       allPlatform: {
         nodes: PLATFORMS,
       },
     }));
+
+    const results = getFallbackPlatformKeys(
+      PLATFORMS.find(d => d.key === "node").guides.find(
+        d => d.key === "node.koa"
+      )
+    );
+    expect(results.length).toBe(2);
+    expect(results[0]).toBe("node");
+    expect(results[1]).toBe("javascript");
+  });
+});
+
+describe("usePlatform", () => {
+  beforeEach(() => {
+    useLocalStorage.mockReturnValue([null, jest.fn()]);
+    useStaticQuery.mockImplementation(() => ({
+      allPlatform: {
+        nodes: PLATFORMS,
+      },
+    }));
+  });
+
+  it("uses the default of javascript", () => {
+    const wrapper = ({ children }) => (
+      <PageContext.Provider value={{}}>{children}</PageContext.Provider>
+    );
+    useLocation.mockReturnValue({
+      pathname: "/",
+    });
 
     const { result } = renderHook(() => usePlatform(), { wrapper });
     expect(result.current[0].key).toBe("javascript");
@@ -52,15 +99,9 @@ describe("usePlatform", () => {
       </PageContext.Provider>
     );
 
-    useLocalStorage.mockReturnValue([null, jest.fn()]);
     useLocation.mockReturnValue({
       pathname: "/platforms/ruby/",
     });
-    useStaticQuery.mockImplementation(() => ({
-      allPlatform: {
-        nodes: PLATFORMS,
-      },
-    }));
 
     const { result } = renderHook(() => usePlatform(), { wrapper });
     expect(result.current[0].key).toBe("ruby");
@@ -73,7 +114,6 @@ describe("usePlatform", () => {
       </PageContext.Provider>
     );
 
-    useLocalStorage.mockReturnValue([null, jest.fn()]);
     useLocation.mockReturnValue({
       pathname: "/platforms/ruby/",
     });
@@ -81,11 +121,6 @@ describe("usePlatform", () => {
     const navigate = jest.fn();
 
     useNavigate.mockImplementation(() => navigate);
-    useStaticQuery.mockImplementation(() => ({
-      allPlatform: {
-        nodes: PLATFORMS,
-      },
-    }));
 
     const { result } = renderHook(() => usePlatform(), { wrapper });
 
@@ -106,7 +141,6 @@ describe("usePlatform", () => {
       </PageContext.Provider>
     );
 
-    useLocalStorage.mockReturnValue([null, jest.fn()]);
     useLocation.mockReturnValue({
       pathname: "/platforms/ruby/",
     });
@@ -114,11 +148,6 @@ describe("usePlatform", () => {
     const navigate = jest.fn();
 
     useNavigate.mockImplementation(() => navigate);
-    useStaticQuery.mockImplementation(() => ({
-      allPlatform: {
-        nodes: PLATFORMS,
-      },
-    }));
 
     const { result } = renderHook(() => usePlatform(), { wrapper });
 
@@ -136,16 +165,10 @@ describe("usePlatform", () => {
       <PageContext.Provider value={{}}>{children}</PageContext.Provider>
     );
 
-    useLocalStorage.mockReturnValue([null, jest.fn()]);
     useLocation.mockReturnValue({
       pathname: "/",
       search: "?platform=ruby",
     });
-    useStaticQuery.mockImplementation(() => ({
-      allPlatform: {
-        nodes: PLATFORMS,
-      },
-    }));
 
     const { result } = renderHook(() => usePlatform(), { wrapper });
     expect(result.current[0].key).toBe("ruby");
@@ -156,7 +179,6 @@ describe("usePlatform", () => {
       <PageContext.Provider value={{}}>{children}</PageContext.Provider>
     );
 
-    useLocalStorage.mockReturnValue([null, jest.fn()]);
     useLocation.mockReturnValue({
       pathname: "/",
       search: "?platform=javascript",
@@ -164,11 +186,6 @@ describe("usePlatform", () => {
     const navigate = jest.fn();
 
     useNavigate.mockImplementation(() => navigate);
-    useStaticQuery.mockImplementation(() => ({
-      allPlatform: {
-        nodes: PLATFORMS,
-      },
-    }));
 
     const { result } = renderHook(() => usePlatform(), { wrapper });
 
