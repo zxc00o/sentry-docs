@@ -1,7 +1,7 @@
 import fs from "fs";
 import jsdom from "jsdom";
 
-import PlatformRegistry from "../shared/platformRegistry";
+import PlatformRegistry from "../../shared/platformRegistry";
 
 const rmDirSync = (dirPath: string) => {
   let files;
