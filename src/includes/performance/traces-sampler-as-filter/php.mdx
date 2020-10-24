@@ -2,7 +2,7 @@
 Sentry\init([
     # ...
 
-    'traces_sampler' => static function (Sentry\Tracing\SamplingContext $context): float {
+    'traces_sampler' => static function (Sentry\Tracing\SamplingContext $samplingContext): float {
         if ("...") {
             # Drop this transaction, by setting its sample rate to 0%
             return 0;

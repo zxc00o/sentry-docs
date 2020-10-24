@@ -47,7 +47,11 @@ When manually creating a transaction, you can add data to the <PlatformIdentifie
 
 Whatever a transaction's sampling decision, that decision will be passed to its child spans and from there to any transactions they subsequently cause in other services. (See [Connecting Backend and Frontend Transactions](/platforms/javascript/performance/) for more about how that propagation is done.)
 
+<!-- TODO: right now getting the parent sampling decision is broken in PHP -->
+
 If the transaction currently being created is one of those subsequent transactions (in other words, if it has a parent transaction), the upstream (parent) sampling decision will always be included in the sampling context data, so that your <PlatformIdentifier name="traces-sampler" /> can choose whether and when to inherit that decision. (In most cases, inheritance is the right choice, so that you don't end up with partial traces.)
+
+<!-- TODO: figure out if PHP can support returning a boolean -->
 
 For convenience, the <PlatformIdentifier name="traces-sampler" /> function can return a boolean, so that a parent's decision can be returned directly if that's the desired behavior.
 
@@ -62,6 +66,8 @@ If you know at transaction creation time whether or not you want the transaction
 <PlatformContent includePath="performance/force-sampling-decision" />
 
 ## Precedence
+
+<!-- TODO: precedence is currently broken in PHP -->
 
 There are multiple ways for a transaction to end up with a sampling decision.
 
