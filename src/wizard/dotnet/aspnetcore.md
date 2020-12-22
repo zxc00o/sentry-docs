@@ -10,23 +10,20 @@ Install the **NuGet** package:
 Package Manager:
 
 ```shell
-Install-Package Sentry.AspNetCore -Version 2.1.5
+Install-Package Sentry.AspNetCore -Version {{ packages.version('sentry.dotnet') }}
 ```
 
 .NET Core CLI:
 
 ```shell
-dotnet add package Sentry.AspNetCore -v 2.1.5
-```
-
-```Paket
-paket add Sentry.AspNetCore --version 2.1.5
+dotnet add package Sentry.AspNetCore -v {{ packages.version('sentry.dotnet') }}
 ```
 
 Add Sentry to `Program.cs` through the `WebHostBuilder`:
 
 ASP.NET Core 2.x:
 
+C#:
 ```csharp
 public static IWebHost BuildWebHost(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
@@ -34,6 +31,7 @@ public static IWebHost BuildWebHost(string[] args) =>
         .UseSentry("___PUBLIC_DSN___");
 ```
 
+F#:
 ```fsharp
 let BuildWebHost args =
     WebHost.CreateDefaultBuilder(args)
@@ -41,8 +39,9 @@ let BuildWebHost args =
         .UseSentry("___PUBLIC_DSN___")
 ```
 
-ASP.NET Core 3.0:
+ASP.NET Core 3 or later;
 
+C#:
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -53,6 +52,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
+F#:
 ```fsharp
 let CreateHostBuilder args =
     Host.CreateDefaultBuilder(args)
@@ -62,7 +62,30 @@ let CreateHostBuilder args =
         )
 ```
 
-## Samples
+### Verification
+
+You can verify your setup by throwing an exception from a controller:
+
+```csharp
+[Route("api/[controller]")]
+public class BadController
+{
+    [HttpGet]
+    public string Get() => throw null;
+}
+```
+
+And make a request to that lambda:
+
+```sh
+curl -X GET -I https://url.of.server/api/bad
+```
+
+### Documentation
+
+Once you've verified the package is initialized properly and sent a test event, consider visiting our [complete ASP.NET Core docs](https://docs.sentry.io/platforms/dotnet/guides/aspnetcore/).
+
+### Samples
 
 See the following examples that demonstrate how to integrate Sentry with various frameworks.
 
