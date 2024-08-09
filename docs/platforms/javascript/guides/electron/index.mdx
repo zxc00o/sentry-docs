@@ -8,6 +8,12 @@ categories:
 
 `@sentry/electron` is the official Sentry SDK for Electron applications. It can capture JavaScript exceptions in the `main` and `renderer` processes, as well as collect native crash reports (Minidumps).
 
+## Features
+
+In addition to capturing errors, you can monitor interactions between multiple services or applications by [enabling tracing](/concepts/key-terms/tracing/). You can also get to the root of an error or performance issue faster, by watching a video-like reproduction of a user session with [session replay](/product/explore/session-replay/web/getting-started/).
+
+Select which Sentry features you'd like to install in addition to Error Monitoring to get the corresponding installation and configuration instructions below.
+
 ## Install
 
 <OnboardingOptionButtons
@@ -29,8 +35,7 @@ Once configured, all unhandled exceptions and native crashes are automatically c
 Our Sentry Wizard can help with the setup process. Make sure you have installed the `@sentry/wizard` npm package globally, then run:
 
 ```shell
-npm install -g @sentry/wizard
-sentry-wizard --integration electron
+npx @sentry/wizard@latest -i electron
 ```
 
 This will guide you through the installation and configuration process and suggest useful tools for development. If you instead prefer to setup manually, keep reading.

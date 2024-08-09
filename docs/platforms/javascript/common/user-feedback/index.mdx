@@ -8,7 +8,7 @@ The User Feedback feature allows you to collect user feedback from anywhere insi
 
 Note that if you're using a self-hosted Sentry instance, you'll need to be on version 24.4.2 or higher in order to use the full functionality of the User Feedback feature. Lower versions may have limited functionality.
 
-<PlatformSection notSupported={["javascript.node", "javascript.aws-lambda", "javascript.azure-functions", "javascript.connect", "javascript.express", "javascript.fastify", "javascript.gcp-functions", "javascript.hapi", "javascript.koa", "javascript.nestjs"]}>
+<PlatformSection notSupported={["javascript.node", "javascript.aws-lambda", "javascript.azure-functions", "javascript.connect", "javascript.express", "javascript.fastify", "javascript.gcp-functions", "javascript.hapi", "javascript.koa", "javascript.nestjs", "javascript.deno", "javascript.bun", "javascript.cordova", "javascript.wasm"]}>
 
 ## User Feedback Widget
 
@@ -38,7 +38,7 @@ By default, this will insert the widget into the bottom right corner of your web
 On SDK version 8.0.0 and above, users can send screenshots with their feedback. If you're self-hosting, you also need release 24.4.2 and above. You can configure this using the `enableScreenshot` option, by default it is set to `true`. Screenshots aren't supported on mobile devices, so the screenshot button will be hidden automatically in this case.
 
 <Alert level="">
-  Screenshots use your [attachments quota](/product/accounts/quotas/manage-attachments-quota). All plans come with 1GB of attachments, which is approxiamately 2500 screenshots.
+  Screenshots use your [attachments quota](/pricing/quotas/manage-attachments-quota). All plans come with 1GB of attachments, which is approxiamately 2500 screenshots.
 </Alert>
 
 ### Session Replay

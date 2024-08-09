@@ -49,7 +49,7 @@ export function MobileMenu({pathname, searchPlatforms}: Props) {
               <DropdownMenu.Separator className={styles.DropdownMenuSeparator} />
             </Box>
             <DropdownMenu.Item className={styles.DropdownMenuItem} asChild>
-              <Link href="/changelog">Changelog</Link>
+              <Link href="https://sentry.io/changelog/">Changelog</Link>
             </DropdownMenu.Item>
             <DropdownMenu.Item className={styles.DropdownMenuItem} asChild>
               <Link href="https://try.sentry-demo.com/demo/start/">Sandbox</Link>

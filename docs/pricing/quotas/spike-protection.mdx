@@ -7,7 +7,7 @@ description: "Learn how to manage your quota and make sure that your volume isn'
 
 A spike is a significant, temporary increase in your event volume. Because Sentry bills based on the number of events sent monthly, spikes can quickly consume your quota for an entire month. Spike Protection guards against this by establishing a spike threshold for the average number of events each of your projects sends and then dropping them after that threshold is reached.
 
-Spike Protection currently applies to errors, transactions, and attachments.
+Spike Protection currently applies to errors, transactions or spans, and attachments.
 
 <Note>
 
@@ -61,7 +61,7 @@ While Spike Protection notifications are turned off by default, you can turn the
 
 We recommend taking the following steps to manage your spikes:
 
-- Check to see which issues are [consuming your quota](https://sentry.sentry.io/stats/).
+- Check to see which issues are [consuming your quota](https://sentry.io/orgredirect/organizations/:orgslug/stats/).
 - Set [rate limits](/pricing/quotas/manage-event-stream-guide/#rate-limiting) on the DSN keys for the projects related to the spike.
 - Set up [metric alerts](/product/alerts/alert-types/#metric-alerts) for the number of events in a project.
 - If a specific release version has caused the spike, add the version identifier to the project's [inbound filters](/pricing/quotas/manage-event-stream-guide/#inbound-data-filters) to avoid accepting events from that release.
