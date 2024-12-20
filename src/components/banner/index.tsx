@@ -60,6 +60,17 @@ const BANNERS: BannerType[] = [
     linkURL: 'https://sentry.io/events/launch-week/?promo_name=launchweekQ4FY2024',
     linkText: 'See what’s new.',
   },
+  {
+    appearsOn: [
+      '^/platforms/flutter/',
+      '^/platforms/react-native/',
+      '^/platforms/android/',
+      '^/platforms/apple/guides/ios/',
+    ],
+    text: 'Session Replay for Mobile beta ends January 6, 2025.',
+    linkURL: 'https://docs.sentry.io/product/explore/session-replay/mobile/',
+    linkText: 'Try beta for free now.',
+  },
 ];
 
 const LOCALSTORAGE_NAMESPACE = 'banner-manifest';
