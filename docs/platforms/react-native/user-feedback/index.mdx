@@ -66,6 +66,26 @@ Sentry.init({
 
 There are many options you can pass to the integration constructor. See the [configuration documentation](/platforms/react-native/user-feedback/configuration/) for more details.
 
+### Shake to Report
+
+You can enable shake-to-report so that shaking the device opens the Feedback Widget. Enable it declaratively via the `feedbackIntegration` option:
+
+```javascript
+Sentry.feedbackIntegration({
+  enableShakeToReport: true,
+});
+```
+
+Or control it programmatically:
+
+```javascript
+// Start listening for shake gestures to open the feedback widget
+Sentry.enableFeedbackOnShake();
+
+// Stop listening for shake gestures
+Sentry.disableFeedbackOnShake();
+```
+
 ### Feedback Widget Component
 
 You can also integrate the `FeedbackWidget` component manually in your app.
