@@ -2,7 +2,7 @@
 title: Logs
 description: Structured logging protocol with severity levels, trace context, and batched envelope delivery.
 spec_id: sdk/telemetry/logs
-spec_version: 1.16.0
+spec_version: 1.17.0
 spec_status: stable
 spec_depends_on:
   - id: sdk/foundations/transport/envelopes
@@ -10,6 +10,9 @@ spec_depends_on:
   - id: sdk/foundations/state-management/scopes/attributes
     version: ">=1.0.0"
 spec_changelog:
+  - version: 1.17.0
+    date: 2026-03-05
+    summary: Added `ingest_settings` and `version` to log envelope item
   - version: 1.16.0
     date: 2026-03-04
     summary: Add sentry.timestamp.sequence attribute for deterministic log ordering
@@ -336,7 +339,7 @@ SDKs **MUST** report count (`log_item`) and size in bytes (`log_byte`) of discar
 
 ### `log` Envelope Item
 
-The `log` envelope item contains an array of log payloads encoded as JSON, allowing multiple logs per envelope item.
+The `log` envelope item payload is a JSON object that **MUST** include an `items` array of log entries, allowing multiple logs per envelope item. The payload **MAY** also include top-level `version` and `ingest_settings` fields as specified in the next section.
 
 An envelope **MUST** contain at most one `log` envelope item — all log entries for a flush are batched into a single item's `items` array. Logs from different traces **MAY** be mixed into the same `log` item, but if they are, the envelope **MUST NOT** include a DSC (dynamic sampling context) header.
 
@@ -355,9 +358,31 @@ An envelope **MUST** contain at most one `log` envelope item — all log entries
   "content_type": "application/vnd.sentry.items.log+json"
 }
 {
+  "version": 2,
+  "ingest_settings": {
+    "infer_ip": "auto",
+    "infer_useragent": "auto"
+  },
   "items": [{..log..}, {..log..}, {..log..}, {..log..}, {..log..}]
 }
 ```
+
+</SpecSection>
+
+<SpecSection id="log-envelope-item-ingest-settings" status="candidate" since="1.17.0">
+
+### `version` and `ingest_settings` properties
+
+The `log` envelope item `ingest_settings` property is an optional JSON object that contains ingestion settings for Relay, for example, to infer certain data from the incoming request.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `infer_ip` | String | **OPTIONAL** | The setting to infer the IP address from the incoming request. One of `auto` or `never` (default). |
+| `infer_useragent` | String | **OPTIONAL** | The setting to infer the user agent from the incoming request. One of `auto` or `never` (default). |
+
+SDKs like Browser or React Native **MAY** set these to `"auto"` to instruct Relay to infer the IP address or user agent from the incoming request and put it onto the log as an attribute.
+
+For ingestion settings to take effect, the SDK **MUST** also set the `version` property to `2` (`number`) or higher. If `version` is omitted, Relay treats the payload as version `1` and doesn't apply `ingest_settings`.
 
 </SpecSection>
 
